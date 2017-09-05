@@ -28,6 +28,7 @@
                         <th>Queue Left</th>
                         <th>Status</th>
                         <th>Time Submitted</th>
+                        <th>Time Start</th>
                     </tr>
                 </thead>
                 <tbody id="countries-list" name="countries-list">
@@ -49,6 +50,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>New Submitted Job</td>
                         <td>{{$record->created_at}}</td>
+                        <td>{{$record->updated_at}}</td>
                     </tr>
                     @endforeach
 

@@ -32,8 +32,9 @@ while(True):
 		if not compileLog:
 			print("Compilation Successful")
 			#UPDATE record_tbls
-			x.execute ("UPDATE record_tbls SET compile_status=1  WHERE id=%s",\
-			( str(row[0])))
+			st=dt.datetime.now()
+			x.execute ("UPDATE record_tbls SET compile_status=1,updated_at=%s  WHERE id=%s",\
+			( st, str(row[0])))
 			conn.commit()
 			time.sleep(0.1)
 			print("Starting to execute MPI command")
@@ -88,16 +89,18 @@ while(True):
 								break
 						if existed == 1:
 							#Update existing record in ranking_tbls
-							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 					(str(timer), logPath, rank_id))
+							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE id=%s",\
+			 					(str(timer), logPath, rank_id,n2))
 			 				conn.commit()
 							time.sleep(0.1)
 						else:
 							#Insert new record in ranking_tbls
 							x.execute("SELECT COUNT(*) FROM ranking_tbls")
 							count = x.fetchall()
+							x.execute("""INSERT INTO ranking_tbls""")
+
 							x.execute("""INSERT INTO ranking_tbls VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",\
-							(str(count[0][0]+1),row[1],row[2],row[3], 0, logPath, 1, str(timer),'S',time.strftime('%Y-%m-%d %H:%M:%S', n2),time.strftime('%Y-%m-%d %H:%M:%S', n2)))
+							(str(count[0][0]+1),row[1],row[2],row[3], 0, logPath, 1, str(timer),'S',n2,n2))
 							conn.commit()
 							time.sleep(0.1)
 					else:

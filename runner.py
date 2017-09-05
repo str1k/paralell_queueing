@@ -56,7 +56,7 @@ while(True):
 				print(traceback.format_exc())
 				print(">>>>>")
 				print(e.message)
-				text_file.write(str(traceback.format_exc())
+				text_file.write(str(traceback.format_exc()))
 				text_file.close()
 				x.execute ("UPDATE record_tbls SET status='S', compile_status=1, process_log_path=%s  WHERE id=%s",\
 			 	(logName, [row[0]]))

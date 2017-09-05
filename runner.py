@@ -42,13 +42,14 @@ while(True):
 			time.sleep(0.1)
 			print("Starting to execute MPI command")
 			runcmd="timeout 1200 mpirun -f hosts -n 19 ./" + row[1] + " " + fileA + " " + fileB + " "+ row[1] + "_out"
+			testa = "1200 mpirun -f hosts -n 19 ./" + row[1] + " " + fileA + " " + fileB + " "+ row[1] + "_out"
 			n1=dt.datetime.now()
 			start = time.time()
 			logName = row[1]+ "_"+ str(row[0]) +"_log"
 			logPath = "/var/www/parallel/public/" + logName
 			try:
 				#runLog = subprocess.check_output(runcmd, shell=True)
-				p = subprocess.Popen([runcmd, shell=True], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+				p = subprocess.Popen(["timeout", testa],shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 				out, err = p.communicate()
 				print out
 				text_file = open( logPath, "w")

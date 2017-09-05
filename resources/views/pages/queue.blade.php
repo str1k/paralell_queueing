@@ -62,7 +62,7 @@
                         <td>-</td>
                         <td>Recent Job Complete</td>
                         <td>{{$success->created_at}}</td>
-                        <td>{{$record->updated_at}}</td>
+                        <td>{{$success->updated_at}}</td>
                     </tr>
                     @endif
                 </tbody>

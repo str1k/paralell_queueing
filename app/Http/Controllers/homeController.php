@@ -11,6 +11,7 @@ use Redirect;
 use Session;
 use App\record_tbl;
 use App\simple_pass;
+date_default_timezone_set("Asia/Bangkok");
 
 class homeController extends Controller
 {

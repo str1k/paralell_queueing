@@ -52,7 +52,7 @@
                     </tr>
                     @endforeach
 
-                    if(!is_null($success))
+                    @if(!is_null($success))
                     <tr bgcolor="#c4c0c0" id="$success{{$success->id}}">
                         <td>{{$success->stu_id}}</td>
                         <td>{{$success->remark}}</td>

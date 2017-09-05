@@ -28,8 +28,8 @@
                         <th>Remark</th>
                         <th>Time(Sec)</th>
                         <th>Compiled</th>
-                        <th>Process log</th>
                         <th>Correctness</th>
+                        <th>Process log</th>
                         <th>Time Submitted</th>
                     </tr>
                 </thead>
@@ -47,13 +47,13 @@
                         @if($record->compile_status != 1 )
                             <td><span style="color:#ED0034" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
                         @endif
-                        <td><a href="{{$record->process_log_path}}" style="color:#2082EF" >{{$record->process_log_path}}</a></td>
                         @if($record->correctness == 1 )
                             <td><span style="color:#77B900" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                         @endif
                         @if($record->correctness != 1 )
                             <td><span style="color:#ED0034" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
                         @endif
+                        <td><a href="{{$record->process_log_path}}" style="color:#2082EF" >{{$record->process_log_path}}</a></td>
                         <td>{{$record->created_at}}</td>
                     </tr>
                     @endforeach

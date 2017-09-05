@@ -24,8 +24,10 @@ while(True):
 		time.sleep(0.1)
 		#print row[1] ID
 		compilecmd = "mpicc -o "+ row[1] + " "+ row[1] + ".*"
+		deletecmd = "rm " + row[1] + "_out"
 		try:
 			compileLog = subprocess.check_output(compilecmd, shell=True)
+			deleteLog = subprocess.check_output(deletecmd, shell=True)
 		except Exception as e:
 			print(e.message)
 			compileLog = str(e.message)
@@ -70,7 +72,7 @@ while(True):
 			else:
 				print("Run in time:"+ str(timer))
 				if os.path.isfile(row[1]+'_out'):
-					if(filecmp.cmp(row[1]+'_out', 'correctLG')):
+					if(filecmp.cmp(row[1]+'_out', 'correctLG') || filecmp.cmp(row[1]+'_out', 'ResultAc2')):
 						#correct
 						print("Output is correct")
 						#UPDATE record_tbls
@@ -82,9 +84,9 @@ while(True):
 						x.execute("SELECT * FROM ranking_tbls")
 						ranking = x.fetchall()
 						existed = 0
-						rank_id = 0
+						rank_id = "0"
 						for rank in ranking:
-							if row[1] == rank[1]:
+							if int(row[1]) == int(rank[1]):
 								existed = 1
 								rank_id = [rank[0]]
 						if existed == 1:

@@ -49,7 +49,7 @@ while(True):
 				text_file.close()
 			except Exception as e: 
 				text_file = open( logName, "w")
-				text_file.write(str(e)+runlog)
+				text_file.write(str(e)+runLog)
 				text_file.close()
 
 			end = time.time()

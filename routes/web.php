@@ -19,3 +19,19 @@ Route::get('/ranking', 'rankController@show');
 Route::get('/recent', 'recentController@show');
 Route::get('/check','checkingController@show');
 Route::post('/check','checkingController@index');
+Route::get('storage/{filename}', function ($filename)
+{
+    $path = storage_path('public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});

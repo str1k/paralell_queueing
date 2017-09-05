@@ -17,8 +17,9 @@ while(True):
 	queryRet = x.fetchall()
 	for row in queryRet:
 		#UPDATE record_tbls
-		print("Starting ID:"+row[1])
-		x.execute ("UPDATE record_tbls SET status='P' WHERE id=%s",( str(row[0])))
+		print("Starting ID:"+str(row[1]))
+		print("DB ID:"+str(row[0]))
+		x.execute ("""UPDATE record_tbls SET status='P' WHERE id=%s""",( [row[0]]))
 		conn.commit()
 		time.sleep(0.1)
 		#print row[1] ID
@@ -34,7 +35,7 @@ while(True):
 			#UPDATE record_tbls
 			st=dt.datetime.now()
 			x.execute ("UPDATE record_tbls SET compile_status=1,updated_at=%s  WHERE id=%s",\
-			( st, str(row[0])))
+			( st, [row[0]]))
 			conn.commit()
 			time.sleep(0.1)
 			print("Starting to execute MPI command")
@@ -62,7 +63,7 @@ while(True):
 			if(timer > 1199):
 				#UPDATE record_tbls
 				x.execute ("UPDATE record_tbls SET status='S', compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 	(str(timer), logPath, str(row[0])))
+			 	(str(timer), logPath, [row[0]]))
 			 	conn.commit()
 				time.sleep(0.1)
 				print("Run too long table updated")
@@ -74,7 +75,7 @@ while(True):
 						print("Output is correct")
 						#UPDATE record_tbls
 						x.execute("UPDATE record_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, str(row[0])))
+			 				(str(timer), logPath, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 						#Check Ranking Table
@@ -85,8 +86,7 @@ while(True):
 						for rank in ranking:
 							if row[1] == rank[1]:
 								existed = 1
-								rank_id = rank[0]
-								break
+								rank_id = [rank[0]]
 						if existed == 1:
 							#Update existing record in ranking_tbls
 							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE id=%s",\
@@ -105,14 +105,14 @@ while(True):
 						print("Output is wrong")
 						#UPDATE record_tbls
 						x.execute ("UPDATE record_tbls SET status='S', correctness=0, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, str(row[0])))
+			 				(str(timer), logPath, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 				else:
 					#UPDATE record_tbls
 						print("No output code error")
 						x.execute ("UPDATE record_tbls SET status='S', correctness=0, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, str(row[0])))
+			 				(str(timer), logPath, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 

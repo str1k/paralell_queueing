@@ -1,6 +1,7 @@
 import MySQLdb
 import subprocess
 import datetime as dt
+import time
 import filecmp
 import os.path
 import time
@@ -26,7 +27,7 @@ while(True):
 			compileLog = subprocess.check_output(compilecmd, shell=True)
 		except Exception as e:
 			print(e)
-			compileLog = e
+			compileLog = str(e)
 		print("Code Compiled")
 		if not compileLog:
 			print("Compilation Successful")
@@ -38,21 +39,23 @@ while(True):
 			print("Starting to execute MPI command")
 			runcmd="timeout 1200 mpirun -f hosts -n 19 ./" + row[1] + " " + fileA + " " + fileB + " "+ row[1] + "_out"
 			n1=dt.datetime.now()
+			start = time.time()
 			logName = row[1]+ "_"+ str(row[0]) +"_log"
 			logPath = "/nfs/code/recent/" + logName
 			try:
 				runLog = subprocess.check_output(runcmd, shell=True)
 				text_file = open( logName, "w")
 				text_file.write(runLog)
-				text_file.close(logName)
+				text_file.close()
 			except Exception as e: 
 				text_file = open( logName, "w")
-				text_file.write(e)
-				text_file.close(logName)
+				text_file.write(str(e)+runlog)
+				text_file.close()
 
+			end = time.time()
 			n2=dt.datetime.now()
 			print("MPI program ran")
-			timer = (n2-n1).microseconds / 1e6
+			timer = end - start
 			
 			
 			if(timer > 1199):
@@ -121,7 +124,7 @@ while(True):
 			logPath = "/nfs/code/recent/" + logName
 			text_file = open( logName, "w")
 			text_file.write("")
-			text_file.close(compileLog)
+			text_file.close()
 			#UPDATE record_tbls
 			x.execute ("UPDATE record_tbls SET status='S', compile_status=0, process_log_path=%s  WHERE id=%s",\
 			 	(logPath, str(row[0])))

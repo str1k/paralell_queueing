@@ -31,6 +31,7 @@
                         <th>Correctness</th>
                         <th>Process log</th>
                         <th>Time Submitted</th>
+                        <th>Time Processed</th>
                     </tr>
                 </thead>
                 <tbody id="countries-list" name="countries-list">
@@ -55,6 +56,7 @@
                         @endif
                         <td><a href="{{$record->process_log_path}}" style="color:#2082EF" >{{$record->process_log_path}}</a></td>
                         <td>{{$record->created_at}}</td>
+                        <td>{{$record->updated_at}}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -40,6 +40,7 @@
                         <td>0</td>
                         <td>Running</td>
                         <td>{{$run->created_at}}</td>
+                        <td>{{$record->updated_at}}</td>
                     </tr>
                     @endforeach
                     @foreach ($records as $record)
@@ -61,6 +62,7 @@
                         <td>-</td>
                         <td>Recent Job Complete</td>
                         <td>{{$success->created_at}}</td>
+                        <td>{{$record->updated_at}}</td>
                     </tr>
                     @endif
                 </tbody>

@@ -49,7 +49,7 @@ while(True):
 				text_file.close()
 			except Exception as e: 
 				text_file = open( logName, "w")
-				text_file.write(str(e)+runLog)
+				text_file.write(str(e))
 				text_file.close()
 
 			end = time.time()
@@ -68,7 +68,7 @@ while(True):
 			else:
 				print("Run in time:"+ str(timer))
 				if os.path.isfile(row[1]+'_out'):
-					if(filecmp.cmp(row[1]+'_out', 'testingresult')):
+					if(filecmp.cmp(row[1]+'_out', 'correctLG')):
 						#correct
 						print("Output is correct")
 						#UPDATE record_tbls

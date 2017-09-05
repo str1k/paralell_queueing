@@ -27,11 +27,11 @@ while(True):
 		compilecmd = "mpicc -o "+ row[1] + " "+ row[1] + ".*"
 		deletecmd = "rm " + row[1] + "_out"
 		try:
-			compileLog = subprocess.check_output(compilecmd, shell=True)
+			print subprocess.check_output(compilecmd, shell=True)
 			deleteLog = subprocess.check_output(deletecmd, shell=True)
-		except Exception as e:
+		except subprocess.CalledProcessError, e:
 			print(e.message)
-			compileLog = str(e.message)
+			compileLog = str(e.output) + "\n"+str(e.message)
 		print("Code Compiled")
 		if not compileLog:
 			print("Compilation Successful")
@@ -78,7 +78,7 @@ while(True):
 			else:
 				print("Run in time:"+ str(timer))
 				if os.path.isfile(row[1]+'_out'):
-					if( filecmp.cmp(row[1]+'_out', 'correctLG') or filecmp.cmp(row[1]+'_out', 'ResultAc2') ):
+					if( filecmp.cmp(row[1]+'_out', 'correctLG') ):
 						#correct
 						print("Output is correct")
 						#UPDATE record_tbls

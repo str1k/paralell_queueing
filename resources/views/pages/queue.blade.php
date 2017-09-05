@@ -40,7 +40,7 @@
                         <td>0</td>
                         <td>Running</td>
                         <td>{{$run->created_at}}</td>
-                        <td>{{$record->updated_at}}</td>
+                        <td>{{$run->updated_at}}</td>
                     </tr>
                     @endforeach
                     @foreach ($records as $record)

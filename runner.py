@@ -97,8 +97,6 @@ while(True):
 							#Insert new record in ranking_tbls
 							x.execute("SELECT COUNT(*) FROM ranking_tbls")
 							count = x.fetchall()
-							x.execute("""INSERT INTO ranking_tbls""")
-
 							x.execute("""INSERT INTO ranking_tbls VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",\
 							(str(count[0][0]+1),row[1],row[2],row[3], 0, logPath, 1, str(timer),'S',n2,n2))
 							conn.commit()

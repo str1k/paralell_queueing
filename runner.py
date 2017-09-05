@@ -52,7 +52,12 @@ while(True):
 				text_file = open( logPath, "w")
 				text_file.write(str(e.message))
 				text_file.close()
-
+				x.execute ("UPDATE record_tbls SET status='S', compile_status=1, process_log_path=%s  WHERE id=%s",\
+			 	(logName, str(row[0])))
+				conn.commit()
+				time.sleep(0.1)
+				print("Error")
+				break
 			end = time.time()
 			n2=dt.datetime.now()
 			print("MPI program ran")

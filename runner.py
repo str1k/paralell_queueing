@@ -27,8 +27,8 @@ while(True):
 		try:
 			compileLog = subprocess.check_output(compilecmd, shell=True)
 		except Exception as e:
-			print(e)
-			compileLog = str(e)
+			print(e.message)
+			compileLog = str(e.message)
 		print("Code Compiled")
 		if not compileLog:
 			print("Compilation Successful")
@@ -43,15 +43,12 @@ while(True):
 			n1=dt.datetime.now()
 			start = time.time()
 			logName = row[1]+ "_"+ str(row[0]) +"_log"
-			logPath = "/nfs/code/recent/" + logName
+			logPath = "/var/www/parallel/public/" + logName
 			try:
 				runLog = subprocess.check_output(runcmd, shell=True)
-				text_file = open( logName, "w")
-				text_file.write(runLog)
-				text_file.close()
 			except Exception as e: 
-				text_file = open( logName, "w")
-				text_file.write(str(e))
+				text_file = open( logPath, "w")
+				text_file.write(str(e.message))
 				text_file.close()
 
 			end = time.time()
@@ -62,8 +59,11 @@ while(True):
 			
 			if(timer > 1199):
 				#UPDATE record_tbls
+				text_file = open( logPath, "w")
+				text_file.write("Process killed Run too long")
+				text_file.close()
 				x.execute ("UPDATE record_tbls SET status='S', compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 	(str(timer), logPath, [row[0]]))
+			 	(str(timer), logName, [row[0]]))
 			 	conn.commit()
 				time.sleep(0.1)
 				print("Run too long table updated")
@@ -75,7 +75,7 @@ while(True):
 						print("Output is correct")
 						#UPDATE record_tbls
 						x.execute("UPDATE record_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, [row[0]]))
+			 				(str(timer), logName, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 						#Check Ranking Table
@@ -90,7 +90,7 @@ while(True):
 						if existed == 1:
 							#Update existing record in ranking_tbls
 							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE id=%s",\
-			 					(str(timer), logPath, rank_id,n2))
+			 					(str(timer), logName, rank_id,n2))
 			 				conn.commit()
 							time.sleep(0.1)
 						else:
@@ -98,21 +98,24 @@ while(True):
 							x.execute("SELECT COUNT(*) FROM ranking_tbls")
 							count = x.fetchall()
 							x.execute("""INSERT INTO ranking_tbls VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",\
-							(str(count[0][0]),row[1],row[2],row[3], 0, logPath, 1, str(timer),'S',n2,n2))
+							(str(count[0][0]),row[1],row[2],row[3], 0, logName, 1, str(timer),'S',n2,n2))
 							conn.commit()
 							time.sleep(0.1)
 					else:
 						print("Output is wrong")
 						#UPDATE record_tbls
+						text_file = open( logPath, "w")
+						text_file.write("Result is generated but it is wrong")
+						text_file.close()
 						x.execute ("UPDATE record_tbls SET status='S', correctness=0, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, [row[0]]))
+			 				(str(timer), logName, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 				else:
 					#UPDATE record_tbls
 						print("No output code error")
 						x.execute ("UPDATE record_tbls SET status='S', correctness=0, compile_status=1, timer=%s, process_log_path=%s  WHERE id=%s",\
-			 				(str(timer), logPath, [row[0]]))
+			 				(str(timer), logName, [row[0]]))
 			 			conn.commit()
 						time.sleep(0.1)
 
@@ -122,13 +125,13 @@ while(True):
 			#write log
 			print("Compilation error")
 			logName = row[1]+ "_"+ str(row[0]) +"_log"
-			logPath = "/nfs/code/recent/" + logName
-			text_file = open( logName, "w")
-			text_file.write("")
+			logPath = "/var/www/parallel/public/" + logName
+			text_file = open( logPath, "w")
+			text_file.write(compileLog)
 			text_file.close()
 			#UPDATE record_tbls
 			x.execute ("UPDATE record_tbls SET status='S', compile_status=0, process_log_path=%s  WHERE id=%s",\
-			 	(logPath, str(row[0])))
+			 	(logName, str(row[0])))
 			conn.commit()
 			time.sleep(0.1)
 			print("Error")

@@ -77,7 +77,7 @@ while(True):
 			else:
 				print("Run in time:"+ str(timer))
 				if os.path.isfile(row[1]+'_out'):
-					if(filecmp.cmp(row[1]+'_out', 'correctLG') || filecmp.cmp(row[1]+'_out', 'ResultAc2')):
+					if( filecmp.cmp(row[1]+'_out', 'correctLG') or filecmp.cmp(row[1]+'_out', 'ResultAc2') ):
 						#correct
 						print("Output is correct")
 						#UPDATE record_tbls

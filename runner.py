@@ -5,6 +5,7 @@ import time
 import filecmp
 import os.path
 import time
+import traceback
 fileA = "matrix1.txt"
 fileB = "matrix2.txt"
 while(True):

@@ -50,6 +50,11 @@ while(True):
 				runLog = subprocess.check_output(runcmd, shell=True)
 			except Exception as e: 
 				text_file = open( logPath, "w")
+				print(e.__doc__)
+				print(">>>>>")
+				print(traceback.format_exc())
+				print(">>>>>")
+				print(e.message)
 				text_file.write(str(e.__doc__) +str(e.message))
 				text_file.close()
 				x.execute ("UPDATE record_tbls SET status='S', compile_status=1, process_log_path=%s  WHERE id=%s",\

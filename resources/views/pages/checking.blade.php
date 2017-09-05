@@ -99,6 +99,9 @@
                         @if($record->status != 'S')
                             <td><span style="color:#FEE101" class="glyphicon glyphicon-repeat" aria-hidden="true"></span></td>
                         @endif
+                        @if($record->status != 'S')
+                            <td><span style="color:#FEE101" class="glyphicon glyphicon-repeat" aria-hidden="true"></span></td>
+                        @endif
                         @if($record->correctness == 1 && $record->status == 'S')
                             <td><span style="color:#77B900" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                         @endif
@@ -106,9 +109,7 @@
                             <td><span style="color:#ED0034" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
                         @endif
                         <td><a href="{{$record->process_log_path}}" style="color:#2082EF" >{{$record->process_log_path}}</a></td>
-                        @if($record->status != 'S')
-                            <td><span style="color:#FEE101" class="glyphicon glyphicon-repeat" aria-hidden="true"></span></td>
-                        @endif
+                        
                         @if($record->status == 'N')
                             <td>Waiting in queue</td>
                         @endif

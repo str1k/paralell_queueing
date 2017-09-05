@@ -26,6 +26,7 @@ while(True):
 		#print row[1] ID
 		compilecmd = "mpicc -o "+ row[1] + " "+ row[1] + ".*"
 		deletecmd = "rm " + row[1] + "_out"
+		compileLog = ""
 		try:
 			print subprocess.check_output(compilecmd, shell=True)
 			deleteLog = subprocess.check_output(deletecmd, shell=True)

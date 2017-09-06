@@ -29,7 +29,7 @@
                         <th>Time(Sec)</th>
                         <th>Compiled</th>
                         <th>Correctness</th>
-                        <th>Time Submitted</th>
+                        <th>Time Processed</th>
                     </tr>
                 </thead>
                 <tbody id="countries-list" name="countries-list">
@@ -49,7 +49,7 @@
                         <td>{{$record->timer}}</td>
                         <td><span style="color:#77B900" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                         <td><span style="color:#77B900" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-                        <td>{{$record->created_at}}</td>
+                        <td>{{$record->updated_at}}</td>
                     </tr>
                     @endforeach
                 </tbody>

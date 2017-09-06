@@ -31,8 +31,8 @@ while(True):
 			print subprocess.check_output(compilecmd, shell=True)
 			deleteLog = subprocess.check_output(deletecmd, shell=True)
 		except subprocess.CalledProcessError, e:
-			print(e.message)
-			compileLog = str(e.output) + "\n"+str(e.message)
+			print(e.output)
+			compileLog = str(e.output) +str(e.message)
 		print("Code Compiled")
 		if not compileLog:
 			print("Compilation Successful")
@@ -92,8 +92,8 @@ while(True):
 						ranking = x.fetchall()
 						if ranking:
 							#Update existing record in ranking_tbls
-							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE stu_id=%s",\
-			 					(str(timer), logName,n2, [row[1]]))
+							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,remark=%s,updated_at=%s  WHERE stu_id=%s",\
+			 					(str(timer), logName,row[2],n2, [row[1]]))
 			 				conn.commit()
 							time.sleep(0.1)
 						else:

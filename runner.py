@@ -90,10 +90,10 @@ while(True):
 						#Check Ranking Table
 						x.execute("SELECT * FROM ranking_tbls where stu_id=%s",([row[1]]))
 						ranking = x.fetchall()
-						if not ranking:
+						if ranking:
 							#Update existing record in ranking_tbls
-							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE id=%s",\
-			 					(str(timer), logName, rank_id,n2))
+							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE stu_id=%s",\
+			 					(str(timer), logName, [row[0]],n2))
 			 				conn.commit()
 							time.sleep(0.1)
 						else:
@@ -101,7 +101,7 @@ while(True):
 							x.execute("SELECT COUNT(*) FROM ranking_tbls")
 							count = x.fetchall()
 							x.execute("""INSERT INTO ranking_tbls VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",\
-							(str(count[0][0]+2),row[1],row[2],row[3], 0, logName, 1, str(timer),'S',n2,n2))
+							(str(count[0][0]+3),row[1],row[2],row[3], 0, logName, 1, str(timer),'S',n2,n2))
 							conn.commit()
 							time.sleep(0.1)
 					else:

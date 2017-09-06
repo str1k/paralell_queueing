@@ -93,7 +93,7 @@ while(True):
 						if ranking:
 							#Update existing record in ranking_tbls
 							x.execute("UPDATE ranking_tbls SET status='S', correctness=1, compile_status=1, timer=%s, process_log_path=%s,updated_at=%s  WHERE stu_id=%s",\
-			 					(str(timer), logName,n2, [row[0]]))
+			 					(str(timer), logName,n2, [row[1]]))
 			 				conn.commit()
 							time.sleep(0.1)
 						else:

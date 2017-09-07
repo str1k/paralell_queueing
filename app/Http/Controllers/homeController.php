@@ -58,7 +58,7 @@ class homeController extends Controller
       	if (Input::file('code')->isValid()) {
          $destinationPath = '/nfs/code/recent'; // upload path
          $extension = Input::file('code')->getClientOriginalExtension(); // getting image extension
-         $code_fileName = $stu_id.".".$extension;
+         $code_fileName = $stu_id.".c";
          Input::file('code')->move($destinationPath, $code_fileName);
          }
          else {

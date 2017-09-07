@@ -6,8 +6,8 @@ import filecmp
 import os.path
 import time
 import traceback
-fileA = "matrix1.txt"
-fileB = "matrix2.txt"
+fileA = "A.txt"
+fileB = "B.txt"
 while(True):
 	conn = MySQLdb.connect(host= "localhost",
                   user="root",
@@ -79,7 +79,7 @@ while(True):
 			else:
 				print("Run in time:"+ str(timer))
 				if os.path.isfile(row[1]+'_out'):
-					if( filecmp.cmp(row[1]+'_out', 'correctLG') or filecmp.cmp(row[1]+'_out', 'ResultAc2')):
+					if( filecmp.cmp(row[1]+'_out', 'NewResult1') ):
 						#correct
 						print("Output is correct")
 						#UPDATE record_tbls

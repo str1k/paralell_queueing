@@ -34,7 +34,7 @@
                 <tbody id="countries-list" name="countries-list">
                     @if(!is_null($destroyer))
                     <tr bgcolor="#c4c0c0" id="$success{{$success->id}}">
-                        <td>{{$$destroyer->stu_id}}</td>
+                        <td>{{$destroyer->stu_id}}</td>
                         <td>{{$destroyer->remark}}</td>
                         <td>-</td>
                         <td>Recent Cluster Destroyer</td>

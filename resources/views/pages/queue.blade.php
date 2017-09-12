@@ -32,14 +32,14 @@
                     </tr>
                 </thead>
                 <tbody id="countries-list" name="countries-list">
-                    @if(!is_null($destoyer))
+                    @if(!is_null($destroyer))
                     <tr bgcolor="#c4c0c0" id="$success{{$success->id}}">
-                        <td>{{$$destoyer->stu_id}}</td>
-                        <td>{{$destoyer->remark}}</td>
+                        <td>{{$$destroyer->stu_id}}</td>
+                        <td>{{$destroyer->remark}}</td>
                         <td>-</td>
                         <td>Recent Cluster Destroyer</td>
-                        <td>{{$destoyer->created_at}}</td>
-                        <td>{{$destoyer->updated_at}}</td>
+                        <td>{{$destroyer->created_at}}</td>
+                        <td>{{$destroyer->updated_at}}</td>
                     </tr>
                     @endif
                 	@foreach ($running as $run)

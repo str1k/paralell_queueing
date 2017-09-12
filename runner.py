@@ -26,10 +26,18 @@ while(True):
 		#print row[1] ID
 		compilecmd = "mpicc -o "+ row[1] + " "+ row[1] + ".*"
 		deletecmd = "rm " + row[1] + "_out"
+		deletecmd2 = "rm A.txt"
+		deletecmd3 = "rm B.txt"
+		copycmd1 = "cp ../backup/A.txt A.txt"
+		copycmd2 = "cp ../backup/B.txt B.txt"
 		compileLog = ""
 		try:
 			print subprocess.check_output(compilecmd, shell=True)
 			deleteLog = subprocess.check_output(deletecmd, shell=True)
+			deleteLog2 = subprocess.check_output(deletecmd2, shell=True)
+			deleteLog3 = subprocess.check_output(deletecmd3, shell=True)
+			copyLog1 = subprocess.check_output(copycmd1, shell=True)
+			copyLog2 = subprocess.check_output(copycmd2, shell=True)
 		except subprocess.CalledProcessError, e:
 			print(e.output)
 			compileLog = str(e.output) +str(e.message)

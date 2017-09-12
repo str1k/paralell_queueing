@@ -21,6 +21,8 @@ class queueController extends Controller
    	  	$running = record_tbl::where($clauses)->get();
    	  	$clauses = [['status','=','S']];
    	  	$success = record_tbl::where($clauses)->orderBy('created_at', 'DESC')->first();
-    	return view('pages.queue',array('records'=>$records,'running'=>$running,'success'=>$success));
+   	  	$clauses = [['status','=','D']];
+   	  	$destroyer = record_tbl::where($clauses)->orderBy('created_at', 'DESC')->first();
+    	return view('pages.queue',array('records'=>$records,'running'=>$running,'success'=>$success,'destroyer'=>$destroyer));
     	}
 }

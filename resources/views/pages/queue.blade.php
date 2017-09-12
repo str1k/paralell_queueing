@@ -33,7 +33,7 @@
                 </thead>
                 <tbody id="countries-list" name="countries-list">
                     @if(!is_null($destroyer))
-                    <tr bgcolor="#ED0034" id="$success{{$success->id}}">
+                    <tr bgcolor="#ed5e7d" id="$success{{$success->id}}">
                         <td>{{$destroyer->stu_id}}</td>
                         <td>{{$destroyer->remark}}</td>
                         <td>-</td>
